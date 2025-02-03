@@ -18,11 +18,17 @@
     <link rel="icon" type="image/x-icon" href="assets/image/LM-icon.jpg">
     <link rel="stylesheet" href="./assets/css/style.css">
 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <style type="text/tailwindcss">
         :root {
             --primary: #5828f4;
             --primary-hover: #451dc8;
             --font1: 'Lobster', sans-serif;
+        }
+
+        [x-cloak] { 
+            display: none !important; 
         }
 
         h1 {
@@ -121,14 +127,33 @@
                 <li>
                     <a href=""> Posts</a>
                 </li>
-                <li>
-                    <a href="">
+                <li x-data="{ dropdownOpen: false }" class="relative">
+                    <a @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="cursor-pointer select-none">
                         <img class="h-8 rounded-full object-cover bg-teal-200" src="assets/image/Lucas-Souza.webp"
                             alt="Logo LM" />
                         LM
-                        <img class="w-5" src="https://img.icons8.com/material-sharp/64/777777/expand-arrow--v1.png"
+                        <img x-bind:class="dropdownOpen && 'rotate-180 duration-500'" class="w-5" src="https://img.icons8.com/material-sharp/64/777777/expand-arrow--v1.png"
                             alt="expand-arrow--v1" />
                     </a>
+
+                    <div x-show="dropdownOpen" x-cloak class="absolute right-0 bg-white text-black shadow rounded-lg w-40 p-2 z-20"
+                    x-transition:enter="duration-500 all"
+                    x-transition:enter-start="opacity-0 -translate-y-5 scale-90"
+                    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                    >
+                        <ul class="hoverlist [&>li>a]:justify-end">
+                            <li>
+                                <a href="">
+                                    My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </nav>
